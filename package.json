@@ -1,0 +1,12 @@
+{
+  "name": "sunat-link",
+  "version": "1.0.0",
+  "description": "Servicio backend en Node.js y Express para generar documentos XML UBL 2.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sunat-link · Generador XML UBL 2.1</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --primary: #0f4c81;
+      --primary-hover: #09365c;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --accent: #0ea5e9;
+      --console-bg: #0b1120;
+      --console-text: #38bdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #e2e8f0 0%, #f8fafc 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 28px 16px;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--primary);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.45rem;
+      color: var(--primary);
+      letter-spacing: -0.3px;
+    }
+
+    .header p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 780px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+    }
+
+    .card h2 {
+      margin: 0 0 16px;
+      font-size: 1.05rem;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .field {
+      margin-bottom: 13px;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      flex: 1;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.05s;
+    }
+
+    button:active {
+      transform: scale(0.99);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #1e293b;
+      flex: 0 0 auto;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .summary {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: #334155;
+    }
+
+    .pill strong {
+      color: var(--primary);
+    }
+
+    pre {
+      margin: 0;
+      background: var(--console-bg);
+      color: var(--console-text);
+      padding: 16px;
+      border-radius: 10px;
+      font-family: "Consolas", "Fira Code", monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      overflow: auto;
+      max-height: 430px;
+      border: 1px solid #1e293b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>sunat-link</h1>
+        <p>Servicio Backend en Node.js + Express para generación de comprobantes XML UBL 2.1</p>
+      </div>
+      <span class="badge">Estándar UBL 2.1 · API REST</span>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Datos del Comprobante</h2>
+        <form id="formXml">
+          <div class="row-2">
+            <div class="field">
+              <label for="serie">Serie</label>
+              <input id="serie" value="F001" />
+            </div>
+            <div class="field">
+              <label for="correlativo">Correlativo</label>
+              <input id="correlativo" value="00000001" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="emisorRuc">RUC Emisor</label>
+            <input id="emisorRuc" value="20601234567" />
+          </div>
+
+          <div class="field">
+            <label for="emisorNombre">Razón Social Emisor</label>
+            <input id="emisorNombre" value="TECNOLOGIA SUR SAC" />
+          </div>
+
+          <div class="field">
+            <label for="descripcion">Descripción del Ítem</label>
+            <input id="descripcion" value="Servicio de desarrollo y soporte web" />
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label for="cantidad">Cantidad</label>
+              <input id="cantidad" type="number" min="1" value="1" />
+            </div>
+            <div class="field">
+              <label for="precioUnitario">Precio Unit. (S/)</label>
+              <input id="precioUnitario" type="number" step="0.01" min="0" value="500.00" />
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="submit" class="btn-primary">Generar XML UBL 2.1</button>
+            <button type="button" class="btn-secondary" id="btnCopiar">Copiar</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Salida XML Generada</h2>
+        <div class="summary">
+          <div class="pill">Subtotal: <strong id="resSubtotal">S/ 500.00</strong></div>
+          <div class="pill">IGV (18%): <strong id="resIgv">S/ 90.00</strong></div>
+          <div class="pill">Total: <strong id="resTotal">S/ 590.00</strong></div>
+        </div>
+        <pre id="salida">&lt;!-- Completa los datos y haz clic en "Generar XML UBL 2.1" --&gt;</pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("formXml");
+    const salida = document.getElementById("salida");
+    const btnCopiar = document.getElementById("btnCopiar");
+
+    function actualizarResumen(cantidad, precio) {
+      const subtotal = Number(cantidad) * Number(precio);
+      const igv = subtotal * 0.18;
+      const total = subtotal + igv;
+
+      document.getElementById("resSubtotal").textContent = `S/ ${subtotal.toFixed(2)}`;
+      document.getElementById("resIgv").textContent = `S/ ${igv.toFixed(2)}`;
+      document.getElementById("resTotal").textContent = `S/ ${total.toFixed(2)}`;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const cantidad = Number(document.getElementById("cantidad").value) || 1;
+      const precioUnitario = Number(document.getElementById("precioUnitario").value) || 0;
+      actualizarResumen(cantidad, precioUnitario);
+
+      const payload = {
+        serie: document.getElementById("serie").value,
+        correlativo: document.getElementById("correlativo").value,
+        emisorRuc: document.getElementById("emisorRuc").value,
+        emisorNombre: document.getElementById("emisorNombre").value,
+        descripcion: document.getElementById("descripcion").value,
+        cantidad,
+        precioUnitario
+      };
+
+      salida.textContent = "Generando documento XML UBL 2.1...";
+
+      try {
+        const res = await fetch("/api/comprobante/xml", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const xmlText = await res.text();
+        salida.textContent = xmlText;
+      } catch (err) {
+        salida.textContent = "Error al conectar con el servidor: " + err.message;
+      }
+    });
+
+    btnCopiar.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(salida.textContent);
+        btnCopiar.textContent = "¡Copiado!";
+        setTimeout(() => (btnCopiar.textContent = "Copiar"), 1400);
+      } catch {
+        btnCopiar.textContent = "Error";
+      }
+    });
+  </script>
+</body>
+</html>
